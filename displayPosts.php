@@ -24,13 +24,15 @@
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="index.php" class="nav-link" aria-current="page">LeaseMe</a></li>
             <li class="nav-item"><a href="displayPosts.php" class="nav-link active">All Posts</a></li>
-            <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
-            <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
-            <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
             <?php if(!$_SESSION) : ?>
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="signup.php" class="nav-link">Signup</a></li>
             <?php endif; ?>
             <?php if($_SESSION) : ?>
+                <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
+                <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
+                <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
+                <li class="nav-item"><a href="messages.php" class="nav-link">Messages</a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
             <?php endif; ?>
           </ul>

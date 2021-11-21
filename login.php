@@ -61,40 +61,39 @@ if ( ! empty( $_POST ) ) {
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="index.php" class="nav-link" aria-current="page">LeaseMe</a></li>
             <li class="nav-item"><a href="displayPosts.php" class="nav-link">All Posts</a></li>
-            <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
-            <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
-            <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
             <?php if(!$_SESSION) : ?>
                 <li class="nav-item"><a href="login.php" class="nav-link active">Login</a></li>
+                <li class="nav-item"><a href="signup.php" class="nav-link">Signup</a></li>
             <?php endif; ?>
             <?php if($_SESSION) : ?>
+                <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
+                <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
+                <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link active">Logout</a></li>
             <?php endif; ?>
           </ul>
         </header>
       </div>
 
-    <div>
-        <h2>Log In</h2>
-        <form action="" method="post">
-            <input type="text" name="username" placeholder="Enter your username" required>
-            <br>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <br>
-            <input type="submit" value="Submit">
-            <a href="signup.php" class="nav-link">Signup here</a>
+    <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 40%; margin-right: auto; margin-left: auto; text-align: center;">  
+      <h2>Log In</h2>
+          <?php 
+              if ($_SESSION){
+                  echo $_SESSION['username'] . " is logged in!";
+              } 
+              else{
+                  echo "Not logged in!";
+              }
+          ?>    
+          <form action="" method="post">
+              <input type="text" name="username" placeholder="Enter your username" required>
+              <br>
+              <input type="password" name="password" placeholder="Enter your password" required>
+              <br> <br>
+              <input type="submit" value="Submit">
 
-        </form>
+          </form>
     
-        <br> 
-        <?php 
-        if ($_SESSION){
-            echo $_SESSION['username'] . " is logged in!";
-        } 
-        else{
-            echo "Not logged in!";
-        }
-        ?>
     </div>
 
   

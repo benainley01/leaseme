@@ -1,6 +1,33 @@
 <?php
-  session_start();
+session_start();
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'leaseme');
+$con = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+if($con === false){
+  die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+if ($_SESSION){
+  $user_name = $_SESSION['username'];
+  $response = [];
+  $sql = "SELECT Post.pid, Post.description, Post_information.location_name, Post_information.street, Post_information.city, Post_information.state, Post_information.country, Post_information.zip, Post_information.price, Post_photo.photo FROM Post, Post_information, Post_photo, Favorite WHERE Favorite.username = '$user_name' AND Favorite.pid = Post.pid AND Favorite.pid = Post_information.pid AND Favorite.pid = Post_photo.pid;";
+  $result = $con->query($sql);
+  if ($result && $result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Location: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Street: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
+      "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"]);
+    }
+  } else {
+    array_push($response,"0 posts");
+  }
+
+}
+
+// print_r($response);
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -27,6 +54,7 @@
             <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
             <li class="nav-item"><a href="favorites.php" class="nav-link active">Favorites Posts</a></li>
             <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
+            <li class="nav-item"><a href="messages.php" class="nav-link">Messages</a></li>
             <?php if(!$_SESSION) : ?>
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
             <?php endif; ?>
@@ -35,8 +63,33 @@
             <?php endif; ?>
           </ul>
         </header>
-      </div>
+    </div>
+    <!-- end of nav bar -->
+      
+    <?php if(!$_SESSION) : ?>
+        Login to view favorite posts
+    <?php endif; ?>
+      
+    <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
+    <?php 
+    if ($_SESSION){
+      foreach($response as $post){
+        echo $post . "<br>" . "<br>";
+      }
+    }
+    ?>
+    </div>
 
+    <?php if($_SESSION && $result->num_rows > 0) : ?>
+    <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
+    <a href="export_favorites.php" class="btn btn-success"><i class="dwn"></i> Export Favorites</a>      
+
+    <form action="unfavorite.php" method="post">
+    Unfavorite post with PID: <input type="number" name="pid">
+    <input type="submit" class="btn btn-success">
+    </form>
+    </div>
+    <?php endif; ?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

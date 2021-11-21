@@ -1,10 +1,5 @@
 <?php
   session_start();
-  if ($_SESSION){
-    echo "Hello ";
-    echo $_SESSION['username'];
-  }
-  
 ?>
 
 <!doctype html>
@@ -29,13 +24,15 @@
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="index.php" class="nav-link active" aria-current="page">LeaseMe</a></li>
             <li class="nav-item"><a href="displayPosts.php" class="nav-link">All Posts</a></li>
-            <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
-            <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
-            <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
             <?php if(!$_SESSION) : ?>
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="signup.php" class="nav-link">Signup</a></li>
             <?php endif; ?>
             <?php if($_SESSION) : ?>
+                <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
+                <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
+                <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
+                <li class="nav-item"><a href="messages.php" class="nav-link">Messages</a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
             <?php endif; ?>
           </ul>
@@ -44,6 +41,13 @@
 
       <section class="jumbotron text-center">
         <div class="container">
+
+          <?php 
+            if ($_SESSION){
+              echo "<h1>" . "Hello " . $_SESSION['username'] . "</h1>";
+            }
+          ?>
+
           <h1 class="jumbotron-heading">Welcome to LeaseMe</h1>
           <p class="lead text-muted">Welcome to LeaseMe, a listing site for Charlottesville civilians to post about rental listings. <br> Be sure to login for our site to access all of our features.</p>
           <p>

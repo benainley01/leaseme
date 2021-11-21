@@ -63,29 +63,30 @@ if ( ! empty( $_POST ) ) {
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="index.php" class="nav-link active" aria-current="page">LeaseMe</a></li>
             <li class="nav-item"><a href="displayPosts.php" class="nav-link">All Posts</a></li>
-            <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
-            <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
-            <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
             <?php if(!$_SESSION) : ?>
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="signup.php" class="nav-link">Signup</a></li>
             <?php endif; ?>
             <?php if($_SESSION) : ?>
+                <li class="nav-item"><a href="createPost.php" class="nav-link">Create Post</a></li>
+                <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
+                <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
             <?php endif; ?>
           </ul>
         </header>
       </div>
 
-    <div>
+      <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 40%; margin-right: auto; margin-left: auto; text-align: center;">
         <h2>Signup</h2>
         <form action="" method="post">
             <input type="text" name="username" placeholder="Enter your username" required>
             <br>
             <input type="password" name="password" placeholder="Enter your password" required>
             <br>
-            <input type="text" name="name" placeholder="Enter your name" required>
+            <input type="text" name="name" placeholder="Enter your name" required> 
             <br>
-            <input type="text" name="email" placeholder="Enter your email" required>
+            <input type="text" name="email" placeholder="Enter your email" required> <br>
             <br>
             <input type="submit" value="Submit">
         </form>
