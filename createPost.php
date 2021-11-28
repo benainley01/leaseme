@@ -1,5 +1,50 @@
 <?php
   session_start();
+  define('DB_SERVER', 'localhost');
+  define('DB_USERNAME', 'root');
+  define('DB_PASSWORD', '');
+  define('DB_NAME', 'leaseme');
+  //Check if the user has filled the POST yet
+  if(!empty($_POST)){
+    $con = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    if($con === false){
+      die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+    $user_name = $_SESSION['username'];
+    $description = $_POST['description']; 
+
+    $sql_post = $con->prepare("INSERT INTO Post (username, description) VALUES (?, ?);");
+    $sql_post->bind_param('ss', $user_name, $description);
+    $sql_post->execute();
+
+    //Post Information (pid is generated when inserting post)
+
+    //Get pid for post info
+    $sql_pid = $con->prepare("SELECT * FROM Post WHERE username = ? AND description = ?;");
+    $sql_pid->bind_param('ss', $user_name, $description);
+    $sql_pid->execute();
+    $pid_result = $sql_pid->get_result();
+    $row = mysqli_fetch_array($pid_result);
+    $pid = $row['pid'];
+    
+    //Insert Post Information
+    $locationName = $_POST['locationName']; 
+    $streetAddress = $_POST['streetAddress']; 
+    $city = $_POST['city']; 
+    $state = $_POST['state']; 
+    $country = $_POST['country']; 
+    $zip = $_POST['zip']; 
+    $price = "N/A";
+    if(isset($_POST['price'])){
+      $price = $_POST['price']; 
+    }
+
+    $sql_post_info = $con->prepare("INSERT INTO Post_Information VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+    $sql_post_info->bind_param('isssssis', $pid, $locationName, $streetAddress, $city, $state, $country, $zip, $price);
+    $sql_post_info->execute();
+
+    header("Location: index.php");
+  }
 ?>
 
 <!doctype html>
@@ -36,6 +81,28 @@
             <?php endif; ?>
           </ul>
         </header>
+      </div>
+
+    <div class="container">
+      <form action="" method="post">
+          <label for="locationName">Location Name:</label><br>
+          <input type="text" id="locationName" name="locationName" placeholder="Location Name" required><br>
+          <label for="streetAddress">Street Address:</label><br>
+          <input type="text" id="streetAddress" name="streetAddress" placeholder="1718 Jefferson Park Avenue" required><br>
+          <label for="city">City:</label><br>
+          <input type="text" id="city" name="city" placeholder="Charlottesville" required><br>
+          <label for="state">State:</label><br>
+          <input type="text" id="state" name="state" placeholder="VA" required><br>
+          <label for="coutry">Country:</label><br>
+          <input type="text" id="country" name="country" placeholder="United States" required><br>
+          <label for="zip">Zip/Postal Code:</label><br>
+          <input type="text" id="zip" name="zip" placeholder="Zip/Postal Code" required><br>
+          <label for="price">Price:</label><br>
+          <input type="text" id="price" name="price" placeholder="Price (Optional)"><br>
+          <label for="decription">Description:</label><br>
+          <textarea rows="10" cols="100" id="description" name="description" placeholder="Brief location description or listing message" required></textarea><br>
+          <input type="submit" value="Submit">
+        </form>
       </div>
 
 
