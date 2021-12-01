@@ -29,7 +29,15 @@ if ($_SESSION) {
     $user_name = $_SESSION['username'];
     
     $friend = $_POST['friend'];
-    
+
+    $stmt = $con->prepare("SELECT * FROM house_user WHERE username=?");
+    if(!$stmt){
+      echo "error";
+    }
+    $stmt->bind_param("s", $friend);
+    $stmt->execute();
+    $user = $stmt->fetch();
+    if($user){    
 
     $stmt1 = $con->prepare(
       "INSERT INTO `message` (`message_id`, `text`) VALUES (?, ?);"
@@ -51,6 +59,8 @@ if ($_SESSION) {
 
     $stmt3->bind_param("sis", $user_name, $None, $time);
     $stmt3->execute();
+
+  }
 
     // $sql = 
     // "INSERT INTO `message` (`message_id`, `text`) VALUES (NULL, '$text_message');

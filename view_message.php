@@ -40,7 +40,7 @@ if ($_SESSION){
     <title>LeaseMe</title>
   </head>
 <body>
-    <a class="btn btn-primary" style = "padding-right: 2vw; margin: 2vw" href="http://localhost/leaseme/messages.php" role="button">Back</a>
+    <a class="btn btn-primary" style = "padding-right: 2vw; margin: 2vw" href="messages.php" role="button">Back</a>
     <div class = "containter-xl border border-primary" style = "margin-left: 5vw; margin-right: 5vw">
     <form action="send_message.php" method="post">
         <p style = "text-align: center">Send a message: <input type="text" name="text_message"></p>
