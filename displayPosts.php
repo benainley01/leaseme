@@ -33,6 +33,7 @@
                 <li class="nav-item"><a href="favorites.php" class="nav-link">Favorites Posts</a></li>
                 <li class="nav-item"><a href="myPosts.php" class="nav-link">My Posts</a></li>
                 <li class="nav-item"><a href="messages.php" class="nav-link">Messages</a></li>
+                <li class="nav-item"><a href="update_info.php" class="nav-link">Update Info </a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
             <?php endif; ?>
           </ul>

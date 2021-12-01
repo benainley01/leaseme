@@ -30,14 +30,14 @@ if ($_SESSION) {
     
     $friend = $_POST['friend'];
 
-  //   $stmt = $con->prepare("SELECT * FROM house_user WHERE username=?");
-  //   if(!$stmt){
-  //     echo "error";
-  //   }
-  //   $stmt->bind_param("s", $friend);
-  //   $stmt->execute();
-  //   $user = $stmt->fetch();
-  //   if($user){    
+    // $stmt = $con->prepare("SELECT * FROM house_user WHERE username=?");
+    // if(!$stmt){
+    //   echo "error";
+    // }
+    // $stmt->bind_param("s", $friend);
+    // $stmt->execute();
+    // $user = $stmt->fetch();
+    // if($user){    
 
   //   $stmt1 = $con->prepare(
   //     "INSERT INTO `message` (`message_id`, `text`) VALUES (?, ?);"
@@ -63,6 +63,7 @@ if ($_SESSION) {
   //   $stmt3->execute();
 
   // }
+  
     $time = $mysqltime . ".000000";
     $sql = 
     "INSERT INTO `message` (`message_id`, `text`) VALUES (NULL, '$text_message');

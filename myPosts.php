@@ -58,6 +58,7 @@ if ($_SESSION){
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
             <?php endif; ?>
             <?php if($_SESSION) : ?>
+              <li class="nav-item"><a href="update_info.php" class="nav-link">Update Info </a></li>
                 <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
             <?php endif; ?>
           </ul>
