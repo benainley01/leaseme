@@ -50,7 +50,7 @@ if($con === false){
 
       <div class = "containter-xl border border-primary" style = "margin-left: 5vw; margin-right: 5vw">
         <form action="view_message.php" method="get">
-          <p style = "text-align: center">View messages from who? (enter username): <input type="text" name="friend" /></p>
+          <p style = "text-align: center">Send messages to who? (enter username): <input type="text" name="friend" /></p>
           <p style = "text-align: center"><input type="submit" /></p>
         </form>
       </div>

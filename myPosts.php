@@ -13,7 +13,7 @@ if($con === false){
 if ($_SESSION){
   $user_name = $_SESSION['username'];
   $response = [];
-  $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.username = 'tester' AND Post.pid = Post_information.pid;";
+  $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.username = '$user_name' AND Post.pid = Post_information.pid;";
   $result = $con->query($sql);
   if ($result && $result->num_rows > 0) {
     // output data of each row
@@ -68,17 +68,6 @@ if ($_SESSION){
       <?php if(!$_SESSION) : ?>
         Login to view your posts
       <?php endif; ?>
-
-      <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
-      <?php 
-      if ($_SESSION){
-        foreach($response as $post){
-          echo $post . "<br>" . "<br>"; 
-        }
-      }
-      ?>
-      </div>
-      
       <?php if($_SESSION && $result->num_rows > 0) : ?>
       <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
       <form action="deletePost.php" method="post">
@@ -95,6 +84,18 @@ if ($_SESSION){
       </form>
       </div>
       <?php endif; ?>
+
+      <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
+      <?php 
+      if ($_SESSION){
+        foreach($response as $post){
+          echo $post . "<br>" . "<br>"; 
+        }
+      }
+      ?>
+      </div>
+      
+      
 
 
     <!-- Optional JavaScript -->
