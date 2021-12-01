@@ -69,6 +69,15 @@ if ($_SESSION){
     <?php if(!$_SESSION) : ?>
         Login to view favorite posts
     <?php endif; ?>
+
+    <?php if($_SESSION) : ?>
+      <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
+        <form action="addFavorite.php" method="post">
+        Enter a post ID to add to your favorites: <input type="number" name="pid">
+        <input type="submit" class="btn btn-success">
+        </form>
+      </div>
+    <?php endif; ?>
       
     <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
     <?php 

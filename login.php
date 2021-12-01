@@ -28,6 +28,7 @@ if ( ! empty( $_POST ) ) {
             // Verify user password and set $_SESSION
             if ($_POST['password'] == $user->password ) {
                 $_SESSION['username'] = $user->username;
+                header("Location: index.php");
             }
         } 
 
