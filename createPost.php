@@ -39,7 +39,7 @@
       $price = $_POST['price']; 
     }
 
-    $sql_post_info = $con->prepare("INSERT INTO Post_Information VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+    $sql_post_info = $con->prepare("INSERT INTO Post_information VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
     $sql_post_info->bind_param('isssssis', $pid, $locationName, $streetAddress, $city, $state, $country, $zip, $price);
     $sql_post_info->execute();
 

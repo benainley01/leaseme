@@ -13,7 +13,7 @@ if($con === false){
 if ($_SESSION){
   $user_name = $_SESSION['username'];
   $response = [];
-  $sql = "SELECT Post.pid, Post.description, Post_information.location_name, Post_information.street, Post_information.city, Post_information.state, Post_information.country, Post_information.zip, Post_information.price, Post_photo.photo FROM Post, Post_information, Post_photo WHERE Post.username = '$user_name' AND Post.pid = Post_information.pid AND Post.pid = Post_photo.pid;";
+  $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.username = 'tester' AND Post.pid = Post_information.pid;";
   $result = $con->query($sql);
   if ($result && $result->num_rows > 0) {
     // output data of each row
