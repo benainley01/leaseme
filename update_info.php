@@ -67,7 +67,7 @@ if ($_SESSION){
     $sql2 = "SELECT phone FROM `house_user` NATURAL JOIN house_user_phone WHERE username = '$user_name';";
     $result2 = $con->query($sql2);
     while($row = $result2->fetch_assoc()) {
-        echo $row["phone"];
+        echo $row["phone"] . "<br>";
     }
 }
 ?>
@@ -75,6 +75,21 @@ if ($_SESSION){
   <br><br>
   <form action="update_email.php" method="post">
     <p style = "text-align: center">Update email: <input type="text" name="email" /></p>
+    <p style = "text-align: center"><input type="submit" /></p>
+  </form>
+</div>
+<br>
+<div>
+  <br>
+  <form action="add_phone.php" method="post">
+    <p style = "text-align: center">Add phone number: <input type="text" name="phone" /></p>
+    <p style = "text-align: center"><input type="submit" /></p>
+  </form>
+</div>
+<div>
+  <br>
+  <form action="delete_phone.php" method="post">
+    <p style = "text-align: center">Delete phone number: <input type="text" name="phone" /></p>
     <p style = "text-align: center"><input type="submit" /></p>
   </form>
 </div>
