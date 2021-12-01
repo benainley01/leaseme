@@ -21,7 +21,7 @@ if ($_SESSION) {
     $mysqltime =  date('Y-m-d H:i:s');
     // echo $mysqltime . "<br>";
     // echo $mysqltime . ".000000";
-    $mysqltime = $mysqltime . ".000000";
+    // $mysqltime = $mysqltime . ".000000";
 
     // $sql = "INSERT INTO message VALUES('$text_message');
     //         INSERT INTO sends_message VALUES('$user_name', '$mysqltime');
@@ -30,53 +30,55 @@ if ($_SESSION) {
     
     $friend = $_POST['friend'];
 
-    $stmt = $con->prepare("SELECT * FROM house_user WHERE username=?");
-    if(!$stmt){
-      echo "error";
-    }
-    $stmt->bind_param("s", $friend);
-    $stmt->execute();
-    $user = $stmt->fetch();
-    if($user){    
+  //   $stmt = $con->prepare("SELECT * FROM house_user WHERE username=?");
+  //   if(!$stmt){
+  //     echo "error";
+  //   }
+  //   $stmt->bind_param("s", $friend);
+  //   $stmt->execute();
+  //   $user = $stmt->fetch();
+  //   if($user){    
 
-    $stmt1 = $con->prepare(
-      "INSERT INTO `message` (`message_id`, `text`) VALUES (?, ?);"
-    );
-    $stmt2 = $con->prepare(
-    "INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES (?, ?, ?);"
-    );
-    $stmt3 = $con->prepare(
-      "INSERT INTO `receives_message` (`username`, `message_id`, `time`) VALUES (?, ?, ?);"
-    );
-    $stmt1->bind_param("is", $None, $text);
-    $None = null;
-    $text = $_POST["text_message"]; 
-    $stmt1->execute();
+  //   $stmt1 = $con->prepare(
+  //     "INSERT INTO `message` (`message_id`, `text`) VALUES (?, ?);"
+  //   );
+  //   $stmt2 = $con->prepare(
+  //   "INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES (?, ?, ?);"
+  //   );
+  //   $stmt3 = $con->prepare(
+  //     "INSERT INTO `receives_message` (`username`, `message_id`, `time`) VALUES (?, ?, ?);"
+  //   );
+  //   $None = null;
+  //   $text = $_POST["text_message"]; 
+  //   // $stmt1->bind_param("is", $None, $text);
+  //   $stmt1->bind_param("is", $None, $text);
+    
+  //   $stmt1->execute();
 
-    $stmt2->bind_param("sis", $friend, $None, $time);
+  //   $stmt2->bind_param("sis", $friend, $None, $time);
+  //   $time = $mysqltime . ".000000";
+  //   $stmt2->execute();
+
+  //   $stmt3->bind_param("sis", $user_name, $None, $time);
+  //   $stmt3->execute();
+
+  // }
     $time = $mysqltime . ".000000";
-    $stmt2->execute();
-
-    $stmt3->bind_param("sis", $user_name, $None, $time);
-    $stmt3->execute();
-
-  }
-
-    // $sql = 
-    // "INSERT INTO `message` (`message_id`, `text`) VALUES (NULL, '$text_message');
-    // INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES ('$user_name', NULL, '$mysqltime');
-    // INSERT INTO `receives_message` (`username`, `message_id`, `time`) VALUES ('$friend', NULL, '$mysqltime')";
+    $sql = 
+    "INSERT INTO `message` (`message_id`, `text`) VALUES (NULL, '$text_message');
+    INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES ('$user_name', NULL, '$time');
+    INSERT INTO `receives_message` (`username`, `message_id`, `time`) VALUES ('$friend', NULL, '$time')";
 
 
     // INSERT INTO `message` (`message_id`, `text`) VALUES (NULL, 'test');
     // INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES ('mld6nh', NULL, '2021-12-01 07:17:29.000000');
     // INSERT INTO `sends_message` (`username`, `message_id`, `time`) VALUES ('mld6nh', NULL, '2021-12-01 07:17:29.000000');
     
-    // if ($con->multi_query($stmt) === TRUE) {
-    //     echo "hi";
-    //     header("Location: view_message.php?friend=".$friend);
-    //     // http://localhost/leaseme/view_message.php?friend=dws3qd
-    // }
+    if ($con->multi_query($sql) === TRUE) {
+        echo "hi";
+        header("Location: view_message.php?friend=".$friend);
+        // http://localhost/leaseme/view_message.php?friend=dws3qd
+    }
     header("Location: view_message.php?friend=".$friend);
 }
 ?>
