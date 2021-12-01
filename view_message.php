@@ -21,7 +21,8 @@ if ($_SESSION){
     INNER JOIN
     receives_message ON receives_message.message_id = sends_message.message_id
     INNER JOIN message ON receives_message.message_id = message.message_id
-    WHERE sends_message.username = '$user_name' OR sends_message.username = '$friend'
+    WHERE (sends_message.username = '$user_name' AND receives_message.username = '$friend')
+    OR (sends_message.username = '$friend' AND receives_message.username = '$user_name')
     ORDER BY sends_message.message_id";
 
     $result = $con->query($sql);
