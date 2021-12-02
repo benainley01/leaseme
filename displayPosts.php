@@ -17,7 +17,7 @@
       // output data of each row
       while($row = $result->fetch_assoc()) {
         array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Location: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Street: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
-        "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"]);
+        "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"] . "<br>" . "<br>" . "contact: " . $row["username"]);
       }
     } else {
       array_push($response,"0 posts");
