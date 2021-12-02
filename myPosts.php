@@ -13,12 +13,14 @@ if($con === false){
 if ($_SESSION){
   $user_name = $_SESSION['username'];
   $response = [];
+  $response_lists = [];
   $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.username = '$user_name' AND Post.pid = Post_information.pid;";
   $result = $con->query($sql);
   if ($result && $result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Location: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Street: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
+      array_push($response_lists, $row);
+      array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Name: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Address: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
       "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"]);
     }
   } else {
@@ -66,34 +68,44 @@ if ($_SESSION){
       </div>
       <!-- end of nav bar -->      
 
-      <?php if(!$_SESSION) : ?>
-        Login to view your posts
-      <?php endif; ?>
-      <?php if($_SESSION && $result->num_rows > 0) : ?>
-      <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
-      <form action="deletePost.php" method="post">
-      Delete post with PID: <input type="number" name="pid">
-      <input type="submit" class="btn btn-success">
-      </form>
-      </div>
-
-      <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
-      <form action="editPost.php" method="post">
-      Which Post ID which you like to edit: <input type="text" name="pid"> <br> <br>
-      Change description: <input type="text" name="description"> <br> <br>
-      <input type="submit" class="btn btn-success">
-      </form>
-      </div>
-      <?php endif; ?>
-
-      <div class="card text-white bg-primary mb-3" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
-      <?php 
-      if ($_SESSION){
-        foreach($response as $post){
-          echo $post . "<br>" . "<br>"; 
-        }
-      }
-      ?>
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <?php if ($_SESSION): ?>
+            <?php
+              $ind = 0;
+              ?>
+            <?php foreach($response_lists as $post): ?>
+              <?php if (($ind % 3) === 0): ?>
+                <div class="row">
+              <?php endif; ?>
+              <div class="col-md-4">
+                  <div class="card mb-4 shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+                    <div class="card-body">
+                      <p class="card-text"><?php echo "Post ID: " . $post["pid"] . "<br>" . "Name: " . $post["location_name"]. "<br>" . "Description: " . $post["description"]. "<br>" . "Address: " . $post["street"] . " " . $post["city"] . " " . $post["state"] . " " . $post["country"]. " " . $post["zip"] . "<br>" . 
+      "Price: " . $post["price"] . "<br>" . "Photo: " . $post["photo"] . "<br>" . "<br>";?></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <?php 
+                          $_SESSION["post_to_change"] = $post["location_name"];
+                          $_SESSION["pid_to_change"] = $post["pid"];
+                          ?>
+                          <a href="editPostPage.php"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                          <a href="deletePostPage.php"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php if (($ind % 3) === 2): ?>
+                  </div>
+                <?php endif; ?>
+                <?php
+                  $ind = $ind + 1;
+                ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
       </div>
       
       
