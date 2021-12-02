@@ -9,15 +9,24 @@ if($con === false){
   die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $user_name = $_SESSION['username'];
-$postID = $_POST["pid"]; 
+$postID = $_SESSION["pid_to_change"]; 
 
-$sql = "DELETE FROM Post_information WHERE pid = $postID;
-DELETE FROM Post WHERE username = '$user_name' AND pid = $postID;
-DELETE FROM Post_photo WHERE pid = $postID;
-DELETE FROM Favorite WHERE pid = $postID;";
+if($_POST["confirm_delete"] === "yes"){
+  $sql = "DELETE FROM Post_information WHERE pid = $postID;
+  DELETE FROM Post WHERE username = '$user_name' AND pid = $postID;
+  DELETE FROM Post_photo WHERE pid = $postID;
+  DELETE FROM Favorite WHERE pid = $postID;";
+  
+  unset($_SESSION["pid_to_change"]);
+  unset($_SESSION["post_to_change"]);
 
-if ($con->multi_query($sql) === TRUE) {
-    header("Location: myPosts.php");
+  if ($con->multi_query($sql) === TRUE) {
+      header("Location: myPosts.php");
+  }
 }
-
+else{
+  unset($_SESSION["pid_to_change"]);
+  unset($_SESSION["post_to_change"]);
+  header("Location: myPosts.php");
+}
 ?>
