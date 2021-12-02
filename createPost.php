@@ -35,6 +35,7 @@
     $country = $_POST['country']; 
     $zip = $_POST['zip']; 
     $price = "N/A";
+    $photo = $_POST['photo']; 
     if(isset($_POST['price'])){
       $price = $_POST['price']; 
     }
@@ -42,6 +43,10 @@
     $sql_post_info = $con->prepare("INSERT INTO Post_information VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
     $sql_post_info->bind_param('isssssis', $pid, $locationName, $streetAddress, $city, $state, $country, $zip, $price);
     $sql_post_info->execute();
+
+    $sql_post_photo = $con->prepare("INSERT INTO Post_photo VALUES (?, ?);");
+    $sql_post_photo->bind_param('is', $pid, $photo);
+    $sql_post_photo->execute();
 
     header("Location: index.php");
   }
@@ -100,6 +105,8 @@
           <input type="text" id="zip" name="zip" placeholder="Zip/Postal Code" required><br>
           <label for="price">Price:</label><br>
           <input type="text" id="price" name="price" placeholder="Price (Optional)"><br>
+          <label for="photo">Photo:</label><br>
+          <textarea rows="10" cols="100" id="photo" name="photo" placeholder="Photo URL"></textarea><br>
           <label for="decription">Description:</label><br>
           <textarea rows="10" cols="100" id="description" name="description" placeholder="Brief location description or listing message" required></textarea><br>
           <input type="submit" value="Submit">
