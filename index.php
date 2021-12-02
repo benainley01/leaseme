@@ -101,7 +101,7 @@
                     <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
                     <div class="card-body">
                       <p class="card-text"><?php echo "Post ID: " . $post["pid"] . "<br>" . "Name: " . $post["location_name"]. "<br>" . "Description: " . $post["description"]. "<br>" . "Address: " . $post["street"] . " " . $post["city"] . " " . $post["state"] . " " . $post["country"]. " " . $post["zip"] . "<br>" . 
-        "Price: " . $post["price"] . "<br>" . "Photo: " . $post["photo"] . "<br>" . "<br>";?></p>
+        "Price: " . $post["price"] . "<br>" . "Photo: " . $post["photo"] . "<br>" . "<br>" . "contact: " . $post["username"];?></p>
                       <?php if ($_SESSION): ?>
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="btn-group">
