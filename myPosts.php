@@ -86,12 +86,12 @@ if ($_SESSION){
       "Price: " . $post["price"] . "<br>" . "Photo: " . $post["photo"] . "<br>" . "<br>";?></p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <?php 
-                          $_SESSION["post_to_change"] = $post["location_name"];
-                          $_SESSION["pid_to_change"] = $post["pid"];
-                          ?>
-                          <a href="editPostPage.php"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
-                          <a href="deletePostPage.php"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                          <form action="editPostPage.php" method="post">
+                            <button name="edit" type="submit" class="btn btn-sm btn-outline-secondary" value="<?php echo $post["pid"]?>">Edit</button>
+                          </form>
+                          <form action="deletePostPage.php" method="post">
+                            <button name="delete" type="submit" class="btn btn-sm btn-outline-secondary" value="<?php echo $post["pid"]?>">Delete</button>
+                          </form>
                         </div>
                       </div>
                     </div>

@@ -42,10 +42,11 @@
         <?php if(!$_SESSION) : ?>
             Login to view your posts
         <?php endif; ?>
-        <?php if($_SESSION && isset($_SESSION["post_to_change"])) : ?>
+        <?php if($_SESSION && isset($_POST["edit"])) : ?>
+            <?php $_SESSION["pid_to_change"] = $_POST["edit"];?>
             <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
                 <form action="editPost.php" method="post">
-                    Editing "<?php echo $_SESSION["post_to_change"];?>":<br>
+                    Editing post <?php echo $_SESSION["pid_to_change"];?>:<br>
                     <label for="decription">Change description:</label><br>
                     <textarea rows="10" cols="100" id="description" name="description" placeholder="Brief location description or listing message" required></textarea><br>
                     <input type="submit" class="btn btn-success">

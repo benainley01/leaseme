@@ -43,10 +43,11 @@
     <?php if(!$_SESSION) : ?>
         Login to view your posts
     <?php endif; ?>
-    <?php if($_SESSION && isset($_SESSION["post_to_change"])) : ?>
+    <?php if($_SESSION && isset($_POST["delete"])) : ?>
+        <?php $_SESSION["pid_to_change"] = $_POST["delete"];?>
         <div class="container p-3 my-3 bg-primary text-white" style= "padding: 10px; max-width: 90%; margin-right: auto; margin-left: auto;">
         <form action="deletePost.php" method="post">
-        Delete post "<?php echo $_SESSION["post_to_change"];?>"?<br>
+        Delete post?<br>
         <input type="radio" name="confirm_delete" value="yes">Yes<br>
         <input type="radio" name="confirm_delete" value="no" checked>No<br>
         <input type="submit" class="btn btn-success">

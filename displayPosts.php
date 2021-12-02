@@ -9,19 +9,19 @@
   if($con === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
   }
-  if ($_SESSION){
-    $response = [];
-    $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.pid = Post_information.pid;";
-    $result = $con->query($sql);
-    if ($result && $result->num_rows > 0) {
-      // output data of each row
-      while($row = $result->fetch_assoc()) {
-        array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Location: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Street: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
-        "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"]);
-      }
-    } else {
-      array_push($response,"0 posts");
+  $response = [];
+  $response_lists = [];
+  $sql = "SELECT * FROM Post NATURAL JOIN Post_information NATURAL LEFT OUTER JOIN Post_photo WHERE Post.pid = Post_information.pid;";
+  $result = $con->query($sql);
+  if ($result && $result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      array_push($response_lists, $row);
+      array_push($response, "Post ID: " . $row["pid"] . "<br>" . "Location: " . $row["location_name"]. "<br>" . "Description: " . $row["description"]. "<br>" . "Street: " . $row["street"] . " " . $row["city"] . " " . $row["state"] . " " . $row["country"]. " " . $row["zip"] . "<br>" . 
+      "Price: " . $row["price"] . "<br>" . "Photo: " . $row["photo"]);
     }
+  } else {
+    array_push($response,"0 posts");
   }
 ?>
 
@@ -66,11 +66,10 @@
       <!-- end of nav bar -->      
       <div class="album py-5 bg-light">
         <div class="container">
-          <?php if ($_SESSION): ?>
             <?php
               $ind = 0;
               ?>
-            <?php foreach($response as $post): ?>
+            <?php foreach($response_lists as $post): ?>
               <?php if (($ind % 3) === 0): ?>
                 <div class="row">
               <?php endif; ?>
@@ -78,9 +77,17 @@
                   <div class="card mb-4 shadow-sm">
                     <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
                     <div class="card-body">
-                      <p class="card-text"><?php echo $post . "<br>" . "<br>";?></p>
-                      <div class="d-flex justify-content-between align-items-center">
-                      </div>
+                      <p class="card-text"><?php echo "Post ID: " . $post["pid"] . "<br>" . "Name: " . $post["location_name"]. "<br>" . "Description: " . $post["description"]. "<br>" . "Address: " . $post["street"] . " " . $post["city"] . " " . $post["state"] . " " . $post["country"]. " " . $post["zip"] . "<br>" . 
+        "Price: " . $post["price"] . "<br>" . "Photo: " . $post["photo"] . "<br>" . "<br>";?></p>
+                      <?php if ($_SESSION): ?>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <form action="addFavorite.php" method="post">
+                              <button name="favorite" type="submit" class="btn btn-sm btn-outline-secondary" value="<?php echo $post["pid"]?>">Favorite</button>
+                            </form>
+                          </div>
+                        </div>
+                      <?php endif?>
                     </div>
                   </div>
                 </div>
@@ -91,7 +98,6 @@
                   $ind = $ind + 1;
                 ?>
             <?php endforeach; ?>
-          <?php endif; ?>
         </div>
       </div>
 
