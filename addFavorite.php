@@ -9,12 +9,12 @@ if($con === false){
   die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 $user_name = $_SESSION['username'];
-$postID = $_POST["pid"]; 
+$postID = $_POST["favorite"]; 
 
 $sql = "INSERT INTO Favorite VALUES ($postID, '$user_name')";
 
 if ($con->query($sql) === TRUE) {
-    header("Location: favorites.php");
+    header("Location: displayPosts.php");
 }
-
+header("Location: displayPosts.php");
 ?>

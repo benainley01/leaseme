@@ -18,7 +18,6 @@ if($_POST["confirm_delete"] === "yes"){
   DELETE FROM Favorite WHERE pid = $postID;";
   
   unset($_SESSION["pid_to_change"]);
-  unset($_SESSION["post_to_change"]);
 
   if ($con->multi_query($sql) === TRUE) {
       header("Location: myPosts.php");
@@ -26,7 +25,6 @@ if($_POST["confirm_delete"] === "yes"){
 }
 else{
   unset($_SESSION["pid_to_change"]);
-  unset($_SESSION["post_to_change"]);
   header("Location: myPosts.php");
 }
 ?>
